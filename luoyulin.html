@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>洛煜淋 - 个人名片</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f9f0ff 0%, #e6f3ff 100%);
+            padding: 20px;
+        }
+        
+        .business-card {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(106, 17, 203, 0.15);
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+        }
+        
+        .business-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(106, 17, 203, 0.2);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #8a4fff 0%, #6a11cb 100%);
+            color: white;
+            padding: 35px 25px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        }
+        
+        .profile-container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .profile-image {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #f0e6ff 0%, #d9e8ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #8a4fff;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 添加图片样式 */
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .name {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        
+        .title {
+            font-size: 16px;
+            opacity: 0.95;
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
+        
+        .department {
+            font-size: 14px;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            color: #8a4fff;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background-color: #f9f5ff;
+            padding-left: 10px;
+            border-radius: 8px;
+        }
+        
+        .contact-item i {
+            width: 28px;
+            margin-right: 12px;
+            color: #8a4fff;
+            font-size: 18px;
+        }
+        
+        .hometown {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f9f5ff 0%, #f0f7ff 100%);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 10px;
+            border-left: 4px solid #8a4fff;
+        }
+        
+        .hometown i {
+            color: #8a4fff;
+            font-size: 22px;
+            margin-right: 12px;
+        }
+        
+        .hometown-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .hometown-title {
+            font-weight: 600;
+            color: #6a11cb;
+            font-size: 15px;
+        }
+        
+        .hometown-desc {
+            color: #666;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0e6ff 0%, #e6f0ff 100%);
+            color: #8a4fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(138, 79, 255, 0.2);
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, #8a4fff 0%, #6a11cb 100%);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(138, 79, 255, 0.3);
+        }
+        
+        .card-footer {
+            background: #f8f9ff;
+            padding: 18px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .card-footer i {
+            color: #8a4fff;
+            margin: 0 8px;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            opacity: 0.1;
+            font-size: 24px;
+            color: #6a11cb;
+        }
+        
+        .icon-1 {
+            top: 15%;
+            left: 10%;
+        }
+        
+        .icon-2 {
+            top: 25%;
+            right: 12%;
+        }
+        
+        .icon-3 {
+            bottom: 30%;
+            left: 8%;
+        }
+        
+        @media (max-width: 480px) {
+            .business-card {
+                max-width: 100%;
+            }
+            
+            .card-header {
+                padding: 30px 20px 20px;
+            }
+            
+            .profile-image {
+                width: 110px;
+                height: 110px;
+                font-size: 40px;
+            }
+            
+            .name {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="business-card">
+        <div class="floating-icon icon-1">
+            <i class="fas fa-dove"></i>
+        </div>
+        <div class="floating-icon icon-2">
+            <i class="fas fa-seedling"></i>
+        </div>
+        <div class="floating-icon icon-3">
+            <i class="fas fa-heart"></i>
+        </div>
+        
+        <div class="card-header">
+            <div class="profile-container">
+                <!-- 修改这里：将图标替换为图片 -->
+                <div class="profile-image">
+                    <!-- 替换下面的图片路径为您的实际图片路径 -->
+                    <img src="./lyl.jpg" alt="骆煜淋">
+                </div>
+                <h1 class="name">洛煜淋</h1>
+                <p class="title">个体服装店老板</p>
+                <p class="department">一米服装集团总经理</p>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <div class="section">
+                <h3 class="section-title"><i class="fas fa-info-circle"></i> 基本信息</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>13212326531</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>luoyulin@cq.gov.cn</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>重庆市北碚区碚都佳院</span>
+                    </div>
+                </div>
+                
+                <div class="hometown">
+                    <i class="fas fa-home"></i>
+                    <div class="hometown-text">
+                        <span class="hometown-title">家乡：重庆市奉节县</span>
+                        <span class="hometown-desc">川渝暴龙</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3 class="section-title"><i class="fas fa-star"></i> 工作职责</h3>
+                <p>公司集团老总，躺着挣钱。</p>
+            </div>
+            
+            <div class="section">
+                <h3 class="section-title"><i class="fas fa-share-alt"></i> 联系我</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-weixin"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-weibo"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-footer">
+            <i class="fas fa-heart"></i>
+            <p>时尚美妆</p>
+            <i class="fas fa-heart"></i>
+        </div>
+    </div>
+
+    <script>
+        // 添加交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const card = document.querySelector('.business-card');
+            
+            // 卡片加载动画
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px) rotate(2deg)';
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0) rotate(0)';
+            }, 200);
+            
+            // 点击卡片效果
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+            
+            // 浮动图标动画
+            const icons = document.querySelectorAll('.floating-icon');
+            icons.forEach((icon, index) => {
+                // 随机初始位置和动画
+                const randomX = Math.random() * 20 - 10;
+                const randomY = Math.random() * 20 - 10;
+                icon.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                
+                // 浮动动画
+                setInterval(() => {
+                    const x = Math.random() * 15 - 7.5;
+                    const y = Math.random() * 15 - 7.5;
+                    icon.style.transition = 'transform 3s ease-in-out';
+                    icon.style.transform = `translate(${x}px, ${y}px)`;
+                }, 3000 + index * 1000);
+            });
+        });
+    </script>
+</body>
+</html>
