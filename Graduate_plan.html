@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026考研上岸计划</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto 40px;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: rgba(255, 255, 255, 0.7);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+        
+        .phase {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .phase.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .phase:nth-child(odd) {
+            left: 0;
+        }
+        
+        .phase:nth-child(even) {
+            left: 50%;
+        }
+        
+        .phase::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border: 4px solid #1a2a6c;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .phase:nth-child(odd)::after {
+            right: -12px;
+        }
+        
+        .phase:nth-child(even)::after {
+            left: -12px;
+        }
+        
+        .phase-content {
+            padding: 20px 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .phase-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .phase-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #1a2a6c;
+            display: flex;
+            align-items: center;
+        }
+        
+        .phase-title i {
+            margin-right: 10px;
+            color: #b21f1f;
+        }
+        
+        .phase-period {
+            font-weight: bold;
+            color: #fdbb2d;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .phase-goal {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-left: 4px solid #1a2a6c;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .subject-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .subject {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .subject h4 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .subject h4 i {
+            margin-right: 8px;
+            color: #b21f1f;
+        }
+        
+        .subject ul {
+            padding-left: 20px;
+        }
+        
+        .subject li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .progress-container {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .progress-bars {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .progress-track {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+        
+        .math .progress-fill {
+            background: linear-gradient(90deg, #1a2a6c, #3a5ccc);
+            width: 0%;
+        }
+        
+        .english .progress-fill {
+            background: linear-gradient(90deg, #b21f1f, #d43f3f);
+            width: 0%;
+        }
+        
+        .major .progress-fill {
+            background: linear-gradient(90deg, #fdbb2d, #ffd166);
+            width: 0%;
+        }
+        
+        .politics .progress-fill {
+            background: linear-gradient(90deg, #1c7c54, #2ecc71);
+            width: 0%;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .phase {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .phase:nth-child(even) {
+                left: 0;
+            }
+            
+            .phase:nth-child(odd)::after,
+            .phase:nth-child(even)::after {
+                left: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-graduation-cap"></i> 2026考研上岸计划</h1>
+            <p class="subtitle">珍惜时间，科学规划，高效备考，明年成功上岸！充分利用碎片时间，实现工作与学习的完美平衡。</p>
+        </header>
+        
+        <div class="timeline">
+            <!-- 第一阶段 -->
+            <div class="phase visible">
+                <div class="phase-content">
+                    <h2 class="phase-title"><i class="fas fa-seedling"></i> 基础入门期</h2>
+                    <div class="phase-period">12月 - 次年2月</div>
+                    <div class="phase-goal"><strong>目标：</strong>建立学习习惯，完成基础铺垫，适应在职学习节奏</div>
+                    
+                    <div class="subject-list">
+                        <div class="subject">
+                            <h4><i class="fas fa-calculator"></i> 数学</h4>
+                            <ul>
+                                <li>高数上册知识点梳理</li>
+                                <li>基础习题每日练习</li>
+                                <li>建立数学思维框架</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-language"></i> 英语</h4>
+                            <ul>
+                                <li>每日核心词汇记忆</li>
+                                <li>基础语法复习</li>
+                                <li>每周3篇阅读精读</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-book"></i> 专业课</h4>
+                            <ul>
+                                <li>收集目标院校资料</li>
+                                <li>通读第一本专业教材</li>
+                                <li>建立知识框架图</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第二阶段 -->
+            <div class="phase">
+                <div class="phase-content">
+                    <h2 class="phase-title"><i class="fas fa-chart-line"></i> 系统强化期</h2>
+                    <div class="phase-period">3月 - 8月</div>
+                    <div class="phase-goal"><strong>目标：</strong>各科目系统学习，建立完整知识体系，提升解题能力</div>
+                    
+                    <div class="subject-list">
+                        <div class="subject">
+                            <h4><i class="fas fa-calculator"></i> 数学</h4>
+                            <ul>
+                                <li>完成高数、线代、概率论第一轮</li>
+                                <li>分类题型专项训练</li>
+                                <li>建立错题本系统</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-language"></i> 英语</h4>
+                            <ul>
+                                <li>词汇量达到4000+</li>
+                                <li>开始真题专项训练</li>
+                                <li>每周1篇作文练习</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-book"></i> 专业课</h4>
+                            <ul>
+                                <li>所有参考书完成第一轮</li>
+                                <li>制作重点知识点卡片</li>
+                                <li>开始真题研究</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-balance-scale"></i> 政治</h4>
+                            <ul>
+                                <li>开始第一轮系统学习</li>
+                                <li>理解马原、毛中特基本概念</li>
+                                <li>关注时政热点</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第三阶段 -->
+            <div class="phase">
+                <div class="phase-content">
+                    <h2 class="phase-title"><i class="fas fa-rocket"></i> 冲刺提升期</h2>
+                    <div class="phase-period">9月 - 11月</div>
+                    <div class="phase-goal"><strong>目标：</strong>真题为主，查漏补缺，提升应试能力和答题速度</div>
+                    
+                    <div class="subject-list">
+                        <div class="subject">
+                            <h4><i class="fas fa-calculator"></i> 数学</h4>
+                            <ul>
+                                <li>近10年真题系统训练</li>
+                                <li>每周2套模拟考试</li>
+                                <li>错题本重点复习</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-language"></i> 英语</h4>
+                            <ul>
+                                <li>真题第二轮精研</li>
+                                <li>作文模板整理</li>
+                                <li>全套模拟训练</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-book"></i> 专业课</h4>
+                            <ul>
+                                <li>真题研究把握规律</li>
+                                <li>重点内容强化记忆</li>
+                                <li>模拟考试训练</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-balance-scale"></i> 政治</h4>
+                            <ul>
+                                <li>分析题模板训练</li>
+                                <li>时政专题整理</li>
+                                <li>重点背诵强化</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第四阶段 -->
+            <div class="phase">
+                <div class="phase-content">
+                    <h2 class="phase-title"><i class="fas fa-flag-checkered"></i> 考前调整期</h2>
+                    <div class="phase-period">12月</div>
+                    <div class="phase-goal"><strong>目标：</strong>保持状态，调整心态，回归基础，迎接考试</div>
+                    
+                    <div class="subject-list">
+                        <div class="subject">
+                            <h4><i class="fas fa-calculator"></i> 数学</h4>
+                            <ul>
+                                <li>公式记忆与重温</li>
+                                <li>错题本最后复习</li>
+                                <li>保持适量练习</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-language"></i> 英语</h4>
+                            <ul>
+                                <li>作文模板熟练运用</li>
+                                <li>核心词汇最后巩固</li>
+                                <li>保持阅读手感</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-book"></i> 专业课</h4>
+                            <ul>
+                                <li>重点内容最后记忆</li>
+                                <li>知识体系回顾</li>
+                                <li>保持适量练习</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subject">
+                            <h4><i class="fas fa-balance-scale"></i> 政治</h4>
+                            <ul>
+                                <li>分析题重点背诵</li>
+                                <li>时政最后梳理</li>
+                                <li>选择题保持练习</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <h3 class="progress-title">当前学习进度</h3>
+            <div class="progress-bars">
+                <div class="progress-bar math">
+                    <div class="progress-info">
+                        <span>数学</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar english">
+                    <div class="progress-info">
+                        <span>英语</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar major">
+                    <div class="progress-info">
+                        <span>专业课</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-bar politics">
+                    <div class="progress-info">
+                        <span>政治</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>考研之路，贵在坚持！每天进步一点点，明年定能成功上岸！</p>
+            <p>© 2026 考研考研系统 | 设计：黄煜洲</p>
+        </footer>
+    </div>
+
+    <script>
+        // 滚动动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const phases = document.querySelectorAll('.phase');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            phases.forEach(phase => {
+                observer.observe(phase);
+            });
+            
+            // 模拟进度条动画
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 300);
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
